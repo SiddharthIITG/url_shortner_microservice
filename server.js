@@ -7,6 +7,8 @@ const ejs = require('ejs');
 const mongodb = require('mongodb');
 //We need to work with "MongoClient" interface in order to connect to a mongodb server.
 const MongoClient = mongodb.MongoClient;
+const url = require('url');
+
 // Connection URL. This is where your mongodb server is running.
 const url = 'mongodb://SiddharthIITG:siddharth@ds157089.mlab.com:57089/short_url_db';
 
