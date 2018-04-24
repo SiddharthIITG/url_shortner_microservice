@@ -34,6 +34,7 @@ app.get('/shorten', function(req, res) {
     }
   const query = req.query;
   if(isValidURL(query.dream)) {
+    console.log('Here');
     // Connection URL. This is where your mongodb server is running.
     const url = 'mongodb://SiddharthIITG:siddharth@ds157089.mlab.com:57089/short_url_db';
     const dbName = 'short_url_db';
@@ -57,7 +58,7 @@ app.get('/shorten', function(req, res) {
         client.close();
       }());
   }
-  res.send(query.dream);
+  // res.send(query.dream);
 });
 
 // listen for requests :)
