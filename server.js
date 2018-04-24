@@ -7,7 +7,6 @@ const ejs = require('ejs');
 const mongodb = require('mongodb');
 //We need to work with "MongoClient" interface in order to connect to a mongodb server.
 const MongoClient = mongodb.MongoClient;
-const url = require('url');
 
 // Connection URL. This is where your mongodb server is running.
 const url = 'mongodb://SiddharthIITG:siddharth@ds157089.mlab.com:57089/short_url_db';
@@ -37,6 +36,11 @@ app.use(express.static('public'));
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function (req, res) {
   res.render('index');
+});
+
+app.get('/shorten', function(req, res) {
+  const query = req.query;
+  res.send(query.dream);
 });
 
 // listen for requests :)
