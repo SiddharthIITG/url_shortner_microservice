@@ -7,7 +7,7 @@ const ejs = require('ejs');
 const mongodb = require('mongodb');
 //We need to work with "MongoClient" interface in order to connect to a mongodb server.
 const MongoClient = mongodb.MongoClient;
-
+const debug = require('debug');
 
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
@@ -36,19 +36,26 @@ app.get('/shorten', function(req, res) {
   if(isValidURL(query.dream)) {
     // Connection URL. This is where your mongodb server is running.
     const url = 'mongodb://SiddharthIITG:siddharth@ds157089.mlab.com:57089/short_url_db';
-
+    const dbName = 'short_url_db';
     // Use connect method to connect to the Server
-    MongoClient.connect(url, function (err, db) {
-    if (err) {
-      console.log('Unable to connect to the mongoDB server. Error:', err);
-    } 
-    else {
-      console.log('Connection established to', url);
-    // do some work here with the database.
-    //Close connection
-    db.close();
-  }
-});
+    (async function mongo() {
+        let client;
+        try {
+          client = await MongoClient.connect(url);
+          debug('Connected correctly to server');
+
+          const db = client.db(dbName);
+          var dbCount = db.collection('urls').count();
+          const jsonObj = {url: query.dream, short_url: 'https://abrasive-reaction.glitch.me/' + (dbCount + 1).toString()}
+          const response = await db.collection('urls').insertOne(jsonObj);
+          res.json(response);
+        }
+        catch (err) {
+          debug(err.stack);
+        }
+
+        client.close();
+      }());
   }
   res.send(query.dream);
 });

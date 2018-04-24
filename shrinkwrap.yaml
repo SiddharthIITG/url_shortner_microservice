@@ -1,4 +1,5 @@
 dependencies:
+  debug: 3.1.0
   ejs: 2.5.9
   express: 4.16.3
   mongodb: 3.0.7
@@ -74,6 +75,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==
+  /debug/3.1.0:
+    dependencies:
+      ms: 2.0.0
+    dev: false
+    resolution:
+      integrity: sha512-OX8XqP7/1a9cqkxYw2yXss15f26NKWBpDXQd0/uK/KPqdQhxbPa994hnzjcE2VqQpDslf55723cKPUOGSmMY3g==
   /depd/1.1.1:
     dev: false
     engines:
@@ -429,6 +436,7 @@ registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 4
 shrinkwrapVersion: 3
 specifiers:
+  debug: ^3.1.0
   ejs: ^2.5.9
   express: ^4.16.3
   mongodb: ^3.0.7
