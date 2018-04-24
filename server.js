@@ -1,9 +1,9 @@
 // server.js
 // where your node app starts
-
 // init project
 var express = require('express');
 var app = express();
+const ejs = require('ejs');
 
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
