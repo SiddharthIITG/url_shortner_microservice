@@ -26,12 +26,15 @@ const url = 'mongodb://SiddharthIITG:siddharth@ds157089.mlab.com:57089/short_url
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
+app.set('views', './src/views');
+app.set('view engine', 'ejs');
+
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
 
 // http://expressjs.com/en/starter/basic-routing.html
-app.get("/", function (request, response) {
-  response.sendFile(__dirname + '/views/index.html');
+app.get("/", function (req, res) {
+  res.render('index');
 });
 
 // listen for requests :)
