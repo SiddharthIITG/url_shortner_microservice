@@ -39,8 +39,15 @@ app.get("/", function (req, res) {
 });
 
 app.get('/shorten', function(req, res) {
+  function isValidURL(str) {
+   var a  = document.createElement('a');
+   a.href = str;
+   return (a.host && a.host != window.location.host);
+  }
   const query = req.query;
-  res.send(query.dream);
+  if(isValidURL(query.dream)) {
+    
+  }
 });
 
 // listen for requests :)
