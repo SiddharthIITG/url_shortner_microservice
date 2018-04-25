@@ -60,7 +60,7 @@ app.get('/shorten', function(req, res) {
             } catch (err1) {
               debug(err1.stack);
           }
-          var jsonObj = {url: query.dream, short_url: 'https://abrasive-reaction.glitch.me/' + (dbCount + 1).toString()};
+          var jsonObj = {url: query.dream, short_url: '<a>' + 'https://abrasive-reaction.glitch.me/' + (dbCount + 1).toString() + '</a>'};
           const response = await db.collection('urls').insertOne(jsonObj);
           res.render(
             'shortUrlRender', 
@@ -94,9 +94,9 @@ app.route(/\d+/)
           client = await MongoClient.connect(url_db);
           console.log('Connected correctly to server');
           const db = client.db(dbName);
-          const document = await db.collection('urls').findOne({shortUrl: reqString});
+          const document = await db.collection('urls').findOne({short_url: reqString});
           console.log('Found');
-          res.json(document);
+          res.redirect(document.url);
           
           // db.close();
         } catch (err) {
