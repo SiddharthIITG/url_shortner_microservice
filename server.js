@@ -93,7 +93,9 @@ app.route(/\d+/)
           client = await MongoClient.connect(url_db);
           debug('Connected correctly to server');
           const db = client.db(dbName);
-          // var dbCount = db.collection('urls').count();
+          const document = await db.collection('urls').findOne({url: reqString});
+          
+          res.redirect()
           
           db.close();
         } catch (err) {
