@@ -49,11 +49,21 @@ app.get('/shorten', function(req, res) {
           debug('Connected correctly to server');
 
           const db = client.db(dbName);
-          var dbCount = db.collection('urls').count();
-          res.send(dbCount);
-          // const jsonObj = {url: query.dream, short_url: 'https://abrasive-reaction.glitch.me/' + (dbCount + 1).toString()}
-          // const response = await db.collection('urls').insertOne(jsonObj);
-          // res.json(jsonObj);
+          // var dbCount = db.collection('urls').count();
+          
+          (async function countDocs(){
+            try {
+              var dbCount = await db.collection('urls').count();
+              // res.send(dbCount.toString());  
+              const jsonObj = {url: query.dream, short_url: 'https://abrasive-reaction.glitch.me/' + (dbCount + 1).toString()}
+              const response = await db.collection('urls').insertOne(jsonObj);
+              res.json(jsonObj);
+            } catch (err1) {
+              debug(err1.stack);
+          }
+            
+          }())
+          
         }
         catch (err) {
           debug(err.stack);
