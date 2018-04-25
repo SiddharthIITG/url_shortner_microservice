@@ -9,6 +9,7 @@ const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
 const debug = require('debug');
 const morgan = require('morgan');
+const url = require('url');
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
@@ -40,13 +41,13 @@ app.get('/shorten', function(req, res) {
   if(isValidURL(query.dream)) {
     console.log('Here');
     // Connection URL. This is where your mongodb server is running.
-    const url = 'mongodb://SiddharthIITG:siddharth@ds157089.mlab.com:57089/short_url_db';
+    const url_db = 'mongodb://SiddharthIITG:siddharth@ds157089.mlab.com:57089/short_url_db';
     const dbName = 'short_url_db';
     // Use connect method to connect to the Server
     (async function mongo() {
         let client;
         try {
-          client = await MongoClient.connect(url);
+          client = await MongoClient.connect(url_db);
           debug('Connected correctly to server');
 
           const db = client.db(dbName);
@@ -79,9 +80,11 @@ app.get('/shorten', function(req, res) {
   // res.send(query.dream);
 });
 
-app.get(/^\d+$/, function (req, res) {
-  
-})
+app.route(/^[0-9]*$/)
+  .get(function (req, res) {
+  const reqString = url.parse(req.url).path.substring(1);
+  res.send(reqString);
+  })
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
