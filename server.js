@@ -80,10 +80,27 @@ app.get('/shorten', function(req, res) {
   // res.send(query.dream);
 });
 
-app.route(/^[0-9]*$/)
+app.route(/\d+/)
   .get(function (req, res) {
-  const reqString = url.parse(req.url).path.substring(1);
-  res.send(reqString);
+  const reqString = 'https://abrasive-reaction.glitch.me/' + url.parse(req.url).path.substring(1);
+   // Connection URL. This is where your mongodb server is running.
+    const url_db = 'mongodb://SiddharthIITG:siddharth@ds157089.mlab.com:57089/short_url_db';
+    const dbName = 'short_url_db';
+    // Use connect method to connect to the Server
+    (async function mongo() {
+        let client;
+        try {
+          client = await MongoClient.connect(url_db);
+          debug('Connected correctly to server');
+          const db = client.db(dbName);
+          // var dbCount = db.collection('urls').count();
+          
+          db.close();
+        } catch (err) {
+          debug(err.stack);
+        }
+        client.close();
+      }());
   })
 
 // listen for requests :)
