@@ -54,14 +54,14 @@ app.get('/shorten', function(req, res) {
           (async function countDocs(){
             try {
               var dbCount = await db.collection('urls').count();
-              // res.send(dbCount.toString());  
-              const jsonObj = {url: query.dream, short_url: 'https://abrasive-reaction.glitch.me/' + (dbCount + 1).toString()}
-              const response = await db.collection('urls').insertOne(jsonObj);
-              res.json(jsonObj);
+
             } catch (err1) {
               debug(err1.stack);
           }
-            
+          const jsonObj = {url: query.dream, short_url: 'https://abrasive-reaction.glitch.me/' + (dbCount + 1).toString()}
+          const response = await db.collection('urls').insertOne(jsonObj);
+          res.send(dbCount.toString());  
+          // res.json(jsonObj);
           }())
           
         }
