@@ -48,7 +48,7 @@ app.get('/shorten', function(req, res) {
         let client;
         try {
           client = await MongoClient.connect(url_db);
-          console.log('Connected correctly to server');
+          console.log('Connected correctly to server again');
 
           const db = client.db(dbName);
           // var dbCount = db.collection('urls').count();
@@ -96,7 +96,7 @@ app.route(/\d+/)
           const db = client.db(dbName);
           const document = await db.collection('urls').findOne({shortUrl: reqString});
           console.log('Found');
-          res.redirect(document.url);
+          res.json(document);
           
           // db.close();
         } catch (err) {
