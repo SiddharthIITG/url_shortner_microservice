@@ -59,12 +59,12 @@ app.get('/shorten', function(req, res) {
             } catch (err1) {
               debug(err1.stack);
           }
-          const jsonObj = JSON.stringify({url: query.dream, short_url: 'https://abrasive-reaction.glitch.me/' + (dbCount + 1).toString()});
+          var jsonObj = {url: query.dream, short_url: 'https://abrasive-reaction.glitch.me/' + (dbCount + 1).toString()};
           const response = await db.collection('urls').insertOne(jsonObj);
           res.render(
             'shortUrlRender', 
             {
-              jsonObj 
+              jsonObj: JSON.stringify(jsonObj, null, 2)
             }
           ) 
           }
