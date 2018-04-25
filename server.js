@@ -8,7 +8,7 @@ const mongodb = require('mongodb');
 //We need to work with "MongoClient" interface in order to connect to a mongodb server.
 const MongoClient = mongodb.MongoClient;
 const debug = require('debug');
-
+const morgan = require('morgan');
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
@@ -17,6 +17,7 @@ app.set('view engine', 'ejs');
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
+app.use(morgan('dev'));
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function (req, res) {
@@ -28,11 +29,13 @@ app.get('/shorten', function(req, res) {
     var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
     if(!regex .test(str)) {
       return false;
+      res.send('false');
     } else {
       return true;
     }
     }
   const query = req.query;
+  
   if(isValidURL(query.dream)) {
     console.log('Here');
     // Connection URL. This is where your mongodb server is running.
@@ -47,9 +50,10 @@ app.get('/shorten', function(req, res) {
 
           const db = client.db(dbName);
           var dbCount = db.collection('urls').count();
-          const jsonObj = {url: query.dream, short_url: 'https://abrasive-reaction.glitch.me/' + (dbCount + 1).toString()}
-          const response = await db.collection('urls').insertOne(jsonObj);
-          res.json(response);
+          res.send(dbCount);
+          // const jsonObj = {url: query.dream, short_url: 'https://abrasive-reaction.glitch.me/' + (dbCount + 1).toString()}
+          // const response = await db.collection('urls').insertOne(jsonObj);
+          // res.json(jsonObj);
         }
         catch (err) {
           debug(err.stack);
