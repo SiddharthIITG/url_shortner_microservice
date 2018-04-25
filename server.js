@@ -14,6 +14,7 @@ const morgan = require('morgan');
 
 app.set('views', './src/views');
 app.set('view engine', 'ejs');
+app.set('json spaces', 2);
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
@@ -60,8 +61,12 @@ app.get('/shorten', function(req, res) {
           }
           const jsonObj = {url: query.dream, short_url: 'https://abrasive-reaction.glitch.me/' + (dbCount + 1).toString()};
           const response = await db.collection('urls').insertOne(jsonObj);
-          res.json(jsonObj);  
-          // res.json(jsonObj);
+          res.render(
+            'shortUrlRender', 
+            {
+              jsonObj 
+            }
+          ) 
           }
           await a();
           // db.close();
