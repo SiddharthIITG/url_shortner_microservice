@@ -69,16 +69,19 @@ app.get('/shorten', function(req, res) {
           ) 
           }
           await a();
-          // db.close();
+          db.close();
         } catch (err) {
           debug(err.stack);
         }
-
         client.close();
       }());
   }
   // res.send(query.dream);
 });
+
+app.get(/^\d+$/, function (req, res) {
+  
+})
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
