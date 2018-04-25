@@ -60,7 +60,7 @@ app.get('/shorten', function(req, res) {
             } catch (err1) {
               debug(err1.stack);
           }
-          var jsonObj = {_id: (dbCount + 1).toString() ,url: `<a href="${query.dream}">` + query.dream + '</a>', short_url: `<a href="https://abrasive-reaction.glitch.me/${(dbCount + 1).toString()}">` + 'https://abrasive-reaction.glitch.me/' + (dbCount + 1).toString() + '</a>'};
+          var jsonObj = {_id: (dbCount + 1).toString() ,url: query.dream, short_url: 'https://abrasive-reaction.glitch.me/' + (dbCount + 1).toString()};
           const response = await db.collection('urls').insertOne(jsonObj);
           res.render(
             'shortUrlRender', 
