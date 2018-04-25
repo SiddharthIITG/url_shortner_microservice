@@ -51,7 +51,7 @@ app.get('/shorten', function(req, res) {
           const db = client.db(dbName);
           // var dbCount = db.collection('urls').count();
           
-          (async function countDocs(){
+          const a = async function countDocs(){
             try {
               var dbCount = await db.collection('urls').count();
 
@@ -60,9 +60,10 @@ app.get('/shorten', function(req, res) {
           }
           const jsonObj = {url: query.dream, short_url: 'https://abrasive-reaction.glitch.me/' + (dbCount + 1).toString()};
           const response = await db.collection('urls').insertOne(jsonObj);
-          res.json(response);  
+          res.json(jsonObj);  
           // res.json(jsonObj);
-          }())
+          }
+          await a();
           // db.close();
         } catch (err) {
           debug(err.stack);
