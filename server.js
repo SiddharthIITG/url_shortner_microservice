@@ -31,7 +31,7 @@ app.get('/shorten', function(req, res) {
     var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
     if(!regex .test(str)) {
       return false;
-      res.send('false');
+      res.send('Invalid Url :(');
     } else {
       return true;
     }
@@ -60,7 +60,7 @@ app.get('/shorten', function(req, res) {
             } catch (err1) {
               debug(err1.stack);
           }
-          var jsonObj = {url: query.dream, short_url: '<a>' + 'https://abrasive-reaction.glitch.me/' + (dbCount + 1).toString() + '</a>'};
+          var jsonObj = {_id: (dbCount + 1).toString() ,url: `<a href="${query.dream}">` + query.dream + '</a>', short_url: `<a href="https://abrasive-reaction.glitch.me/${(dbCount + 1).toString()}">` + 'https://abrasive-reaction.glitch.me/' + (dbCount + 1).toString() + '</a>'};
           const response = await db.collection('urls').insertOne(jsonObj);
           res.render(
             'shortUrlRender', 

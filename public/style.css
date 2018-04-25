@@ -69,3 +69,8 @@ footer {
   padding-top: 25px;
   border-top: 1px solid lightgrey;
 }
+
+pre {
+  font-size: 20px;
+  font-weight: 800;
+}
