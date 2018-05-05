@@ -1,14 +1,9 @@
 Welcome to Url Shortner Microservice
 ================
 
-Usage: Enter the url you want to shorten into the text box in the form. On  You will be redirected to a
-
-Click `Show` in the header to see your app live. Updates to your code will instantly deploy and update live.
-
-**Glitch** is the friendly community where you'll build the app of your dreams. Glitch lets you instantly create, remix, edit, and host an app, bot or site, and you can invite collaborators or helpers to simultaneously edit code with you.
-
-Find out more [about Glitch](https://glitch.com/about).
-
+Usage:
+- Enter the url you want to shorten into the text box in the form. 
+- Click on the link to access the website. 
 
 Your Project
 ------------
