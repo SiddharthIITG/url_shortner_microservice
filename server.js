@@ -60,7 +60,7 @@ app.get('/shorten', function(req, res) {
             } catch (err1) {
               debug(err1.stack);
           }
-          var jsonObj = {_id: (dbCount + 1).toString() ,url: query.dream, short_url: `<a href = 'https://abrasive-reaction.glitch.me/' +${query.dream}>` + 'https://abrasive-reaction.glitch.me/' + (dbCount + 1).toString() + '</a>'};
+          var jsonObj = {_id: (dbCount + 1).toString() ,url: query.dream, short_url: `<a href = ${(dbCount + 1).toString()}>` + 'https://abrasive-reaction.glitch.me/' + (dbCount + 1).toString() + '</a>'};
           const response = await db.collection('urls').insertOne(jsonObj);
           res.render(
             'shortUrlRender', 
@@ -94,8 +94,10 @@ app.route(/\d+/)
           client = await MongoClient.connect(url_db);
           console.log('Connected correctly to server');
           const db = client.db(dbName);
-          const document = await db.collection('urls').findOne({short_url: reqString});
+          const dbCount = await db.collection('urls').count();
+          const document = await db.collection('urls').findOne({short_url: `<a href = ${dbCount}>` + reqString + `<\/a>`});
           console.log('Found');
+          console.log(document.url);
           res.redirect(document.url);
           
           // db.close();
