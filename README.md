@@ -1,5 +1,7 @@
-Welcome to Glitch
-=================
+Welcome to Url Shortner Microservice
+================
+
+Usage: Enter the url you want to shorten into the text box in the form. On  You will be redirected to a
 
 Click `Show` in the header to see your app live. Updates to your code will instantly deploy and update live.
 
@@ -12,7 +14,7 @@ Your Project
 ------------
 
 On the front-end,
-- edit `public/client.js`, `public/style.css` and `views/index.html`
+- edit `public/client.js`, `public/style.css` and `src/views/index.ejs`
 - drag in `assets`, like images or music, to add them to your project
 
 On the back-end,
@@ -21,7 +23,7 @@ On the back-end,
 - safely store app secrets in `.env` (nobody can see this but you and people you invite)
 
 
-Made by [Fog Creek](https://fogcreek.com/)
+Made by SiddharthIITG
 -------------------
 
 \ ゜o゜)ノ

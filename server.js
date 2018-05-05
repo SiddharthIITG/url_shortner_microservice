@@ -72,7 +72,7 @@ app.get('/shorten', function(req, res) {
           res.render(
             'shortUrlRender', 
             {
-              jsonObj: JSON.stringify(jsonObj, null, 2)
+              jsonObj: JSON.stringify(jsonRender, null, 2)
             }
           ) 
           }
@@ -100,7 +100,7 @@ app.route(/\d+/)
           console.log('Connected correctly to server');
           const db = client.db(dbName);
           const dbCount = await db.collection('urls').count();
-          const document = await db.collection('urls').find({cleanUrl: reqString}, {url: 1, short_url: 1});
+          const document = await db.collection('urls').findOne({cleanUrl: reqString});
           res.redirect(document.url);
           
           // db.close();
