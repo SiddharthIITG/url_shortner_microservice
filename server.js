@@ -26,7 +26,10 @@ app.get("/", function (req, res) {
   res.render('index');
 });
 
+
+// this route gets the url request, checks whether it is a valid url. If yes, it creates a short_rl for it which redirects to the given url. 
 app.get('/shorten', function(req, res) {
+  //Checks for valid url. 
   function isValidURL(str) {
     var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
     if(!regex .test(str)) {
@@ -60,8 +63,10 @@ app.get('/shorten', function(req, res) {
             } catch (err1) {
               debug(err1.stack);
           }
+            //creating json object. 
           var jsonObj = {_id: (dbCount + 1).toString() ,url: query.dream, short_url: `<a href = ${(dbCount + 1).toString()}>` + 'https://abrasive-reaction.glitch.me/' + (dbCount + 1).toString() + '</a>'};
           const response = await db.collection('urls').insertOne(jsonObj);
+            //rendering page with json object as parameter.
           res.render(
             'shortUrlRender', 
             {
@@ -77,7 +82,6 @@ app.get('/shorten', function(req, res) {
         client.close();
       }());
   }
-  // res.send(query.dream);
 });
 
 app.route(/\d+/)
