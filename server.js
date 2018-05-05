@@ -54,7 +54,7 @@ app.get('/shorten', function(req, res) {
           console.log('Connected correctly to server again');
 
           const db = client.db(dbName);
-          // var dbCount = db.collection('urls').count();
+          const regexp = /\>(.*?)\</;
           
           const a = async function countDocs(){
             try {
@@ -65,7 +65,9 @@ app.get('/shorten', function(req, res) {
           }
             //creating json object. 
           var jsonObj = {_id: (dbCount + 1).toString() ,url: query.dream, short_url: `<a href = ${(dbCount + 1).toString()}>` + 'https://abrasive-reaction.glitch.me/' + (dbCount + 1).toString() + '</a>'};
+          jsonObj.cleanUrl = jsonObj.short_url.match(regexp)[1];
           const response = await db.collection('urls').insertOne(jsonObj);
+          var jsonRender = {url: jsonObj.url, short_url: jsonObj.short_url};
             //rendering page with json object as parameter.
           res.render(
             'shortUrlRender', 
@@ -90,7 +92,6 @@ app.route(/\d+/)
    // Connection URL. This is where your mongodb server is running.
     const url_db = 'mongodb://SiddharthIITG:siddharth@ds157089.mlab.com:57089/short_url_db';
     const dbName = 'short_url_db';
-    const regexp = /\<(.*?)\>/
     // Use connect method to connect to the Server
     (async function mongo() {
         let client;
@@ -99,7 +100,7 @@ app.route(/\d+/)
           console.log('Connected correctly to server');
           const db = client.db(dbName);
           const dbCount = await db.collection('urls').count();
-          const document = await db.collection('urls').findOne({short_url: `<a href = ${dbCount}>` + reqString + `<\/a>`});
+          const document = await db.collection('urls').find({cleanUrl: reqString}, {url: 1, short_url: 1});
           res.redirect(document.url);
           
           // db.close();
